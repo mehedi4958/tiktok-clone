@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants.dart';
-import 'package:tiktok_clone/views/screens/auth/signup_screen.dart';
+import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
-        alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                hintText: 'Username',
+                prefixIcon: const Icon(Icons.person),
+              ),
+            ),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -45,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Text(
-                    'Login',
+                    'Sign Up',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -59,7 +68,7 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Don\'t have an account?',
+                  'Already have an account?',
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -69,12 +78,12 @@ class LoginScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const SignupScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     );
                   },
                   child: Text(
-                    'Register',
+                    'Login',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
