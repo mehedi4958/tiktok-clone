@@ -2,16 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _screenIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text('Logged in'),
+      body: Center(
+        child: screens[_screenIndex],
       ),
       bottomNavigationBar: CupertinoTabBar(
+        onTap: (index) {
+          setState(() {
+            _screenIndex = index;
+          });
+        },
+        currentIndex: _screenIndex,
         backgroundColor: backgroundColor,
         activeColor: buttonColor,
         inactiveColor: Colors.white,

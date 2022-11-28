@@ -18,3 +18,13 @@ var fireStore = FirebaseFirestore.instance;
 /// Controller
 
 var authController = AuthController.instance;
+
+/// Screens
+
+final screens = [
+  const Text('Home screen'),
+  const Text('Search screen'),
+  const Text('Home screen'),
+  const Text('Message screen'),
+  const Text('Profile screen'),
+];
