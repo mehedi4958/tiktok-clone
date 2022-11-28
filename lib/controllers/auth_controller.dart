@@ -31,6 +31,7 @@ class AuthController extends GetxController {
         UserCredential userCredential = await firebaseAuth
             .createUserWithEmailAndPassword(email: email, password: password);
         String imageUrl = await _uploadImageToStorage(image);
+        fireStore.collection('users').doc(userCredential.user!.uid).set({});
       }
     } catch (e) {
       Get.snackbar(
