@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/views/screens/auth/login_screen.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class SignupScreen extends StatelessWidget {
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () => authController.pickImageFromGallery(),
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -36,6 +45,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: _userNameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -46,6 +56,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -56,6 +67,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -66,7 +78,11 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               InkWell(
-                onTap: () {},
+                onTap: () => authController.registerUser(
+                    _userNameController.text,
+                    _emailController.text,
+                    _passwordController.text,
+                    authController.getUserImage),
                 child: Container(
                   width: MediaQuery.of(context).size.width - 40,
                   height: 50,
