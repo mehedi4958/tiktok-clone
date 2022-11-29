@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controllers/auth_controller.dart';
+import 'package:tiktok_clone/views/screens/add_video_screen.dart';
 
 /// Colors
 
@@ -24,7 +25,7 @@ var authController = AuthController.instance;
 final screens = [
   const Text('Home screen'),
   const Text('Search screen'),
-  const Text('Home screen'),
+  const AddVideoScreen(),
   const Text('Message screen'),
   const Text('Profile screen'),
 ];
