@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/constants.dart';
@@ -14,7 +16,10 @@ class AddVideoScreen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ConfirmScreen(),
+            builder: (context) => ConfirmScreen(
+              videoFile: File(video.path),
+              videoPath: video.path,
+            ),
           ),
         );
       }
