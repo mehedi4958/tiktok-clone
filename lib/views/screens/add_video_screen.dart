@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/views/screens/confirm_screen.dart';
 
 class AddVideoScreen extends StatelessWidget {
   const AddVideoScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    pickVideo(ImageSource src, BuildContext context) async {
+      final video = await ImagePicker().pickVideo(source: src);
+      if (video != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ConfirmScreen(),
+          ),
+        );
+      }
+    }
+
     showDialogOption(BuildContext context) {
       return showDialog(
         context: context,
         builder: (context) => SimpleDialog(
           children: [
             SimpleDialogOption(
-              onPressed: () {},
+              onPressed: () => pickVideo(ImageSource.gallery, context),
               child: Row(
                 children: const [
                   Icon(Icons.image),
@@ -30,7 +44,7 @@ class AddVideoScreen extends StatelessWidget {
               ),
             ),
             SimpleDialogOption(
-              onPressed: () {},
+              onPressed: () => pickVideo(ImageSource.camera, context),
               child: Row(
                 children: const [
                   Icon(Icons.camera_alt_outlined),

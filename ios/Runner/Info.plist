@@ -27,7 +27,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs to access your camers</string>
+	<string>This app needs to access your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs to access your microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>NSPhotoLibraryAddUsageDescription</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
