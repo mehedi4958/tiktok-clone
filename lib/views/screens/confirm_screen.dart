@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/constants.dart';
 import 'package:video_player/video_player.dart';
 
 class ConfirmScreen extends StatefulWidget {
@@ -31,8 +33,15 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   }
 
   @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -41,6 +50,32 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.5,
               child: VideoPlayer(_videoPlayerController),
+            ),
+            const SizedBox(height: 30),
+            const TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.music_note,
+                ),
+                hintText: 'Song Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(CupertinoIcons.captions_bubble),
+                hintText: 'Caption',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: buttonColor,
+              ),
+              onPressed: () {},
+              child: Text('Share'),
             ),
           ],
         ),

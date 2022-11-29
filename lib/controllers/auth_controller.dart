@@ -81,7 +81,7 @@ class AuthController extends GetxController {
       if (email.isNotEmpty && password.isNotEmpty) {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password);
-        Get.off(const HomeScreen());
+        Get.off(() => const HomeScreen());
       } else {
         Get.snackbar('Error logging in!', 'All fields must be filled');
       }
@@ -104,9 +104,9 @@ class AuthController extends GetxController {
 
   _setInitialState(User? user) {
     if (user == null) {
-      Get.offAll(const LoginScreen());
+      Get.offAll(() => const LoginScreen());
     } else {
-      Get.offAll(const HomeScreen());
+      Get.offAll(() => const HomeScreen());
     }
   }
 }
