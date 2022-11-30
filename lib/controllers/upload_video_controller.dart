@@ -1,14 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tiktok_clone/constants.dart';
+import 'package:video_compress/video_compress.dart';
 
 class UploadVideoController {
-  /// upload video to storage
-  _uploadVideoToStorage(String id, String videoPath) {
-    Reference reference = firebaseStorage.ref('videos').child('id');
-    reference.putFile(videoPath);
+  /// video compressor
+  ///
+  _compressVideo(String videoPath) async {
+    final compressedVideo = await VideoCompress.compressVideo(videoPath,
+        quality: VideoQuality.MediumQuality);
+    return compressedVideo!.file;
   }
 
+  /// upload video to storage
+  ///
+  Future<String> _uploadVideoToStorage(String id, String videoPath) async {
+    Reference reference = firebaseStorage.ref('videos').child('id');
+    UploadTask uploadTask = reference.putFile(await _compressVideo(videoPath));
+    TaskSnapshot snapshot = await uploadTask;
+    String videoUrl = await snapshot.ref.getDownloadURL();
+    return videoUrl;
+  }
+
+  ///upload video
+  ///
   uploadVideo(String songName, String caption, String videoPath) async {
     try {
       String uid = firebaseAuth.currentUser!.uid;
