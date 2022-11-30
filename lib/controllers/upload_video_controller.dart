@@ -22,6 +22,21 @@ class UploadVideoController {
     return videoUrl;
   }
 
+  ///
+  ///
+  _getThumbnail(String videoPath) async {
+    final thumbnail = VideoCompress.getFileThumbnail(videoPath);
+    return thumbnail;
+  }
+
+  Future<String> _uploadThumbnailToStorage(String id, String videoPath) async {
+    Reference reference = firebaseStorage.ref('thumbnails').child(id);
+    UploadTask uploadTask = reference.putFile(await _getThumbnail(videoPath));
+    TaskSnapshot snapshot = await uploadTask;
+    String thumbnailUrl = await snapshot.ref.getDownloadURL();
+    return thumbnailUrl;
+  }
+
   ///upload video
   ///
   uploadVideo(String songName, String caption, String videoPath) async {
@@ -31,7 +46,10 @@ class UploadVideoController {
           await fireStore.collection('users').doc(uid).get();
       var videoDocs = await fireStore.collection('videos').get();
       int length = videoDocs.docs.length;
-      _uploadVideoToStorage('videos $length', videoPath);
+      String videoUrl =
+          await _uploadVideoToStorage('videos $length', videoPath);
+      String thumbnailUrl =
+          await _uploadThumbnailToStorage('videos $length', videoPath);
     } catch (e) {}
   }
 }
