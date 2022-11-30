@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/controllers/upload_video_controller.dart';
 import 'package:video_player/video_player.dart';
 
 class ConfirmScreen extends StatefulWidget {
@@ -18,6 +20,10 @@ class ConfirmScreen extends StatefulWidget {
 }
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
+  final UploadVideoController _uploadVideoController =
+      Get.put(UploadVideoController());
+  final TextEditingController _songNameController = TextEditingController();
+  final TextEditingController _captionController = TextEditingController();
   late VideoPlayerController _videoPlayerController;
 
   @override
@@ -52,8 +58,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               child: VideoPlayer(_videoPlayerController),
             ),
             const SizedBox(height: 30),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _songNameController,
+              decoration: const InputDecoration(
                 prefixIcon: Icon(
                   Icons.music_note,
                 ),
@@ -62,8 +69,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _captionController,
+              decoration: const InputDecoration(
                 prefixIcon: Icon(CupertinoIcons.captions_bubble),
                 hintText: 'Caption',
                 border: OutlineInputBorder(),
@@ -74,8 +82,14 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: buttonColor,
               ),
-              onPressed: () {},
-              child: Text('Share'),
+              onPressed: () {
+                _uploadVideoController.uploadVideo(
+                  _songNameController.text,
+                  _captionController.text,
+                  widget.videoPath,
+                );
+              },
+              child: const Text('Share'),
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/models/video_model.dart';
 import 'package:video_compress/video_compress.dart';
@@ -16,7 +17,7 @@ class UploadVideoController {
   /// upload video to storage
   ///
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
-    Reference reference = firebaseStorage.ref('videos').child('id');
+    Reference reference = firebaseStorage.ref('videos').child(id);
     UploadTask uploadTask = reference.putFile(await _compressVideo(videoPath));
     TaskSnapshot snapshot = await uploadTask;
     String videoUrl = await snapshot.ref.getDownloadURL();
@@ -68,6 +69,9 @@ class UploadVideoController {
           .collection('videos')
           .doc('videos $length')
           .set(video.toJson());
-    } catch (e) {}
+      Get.back();
+    } catch (e) {
+      Get.snackbar('Error uploading video', e.toString());
+    }
   }
 }
