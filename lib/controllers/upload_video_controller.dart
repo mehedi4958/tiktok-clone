@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/models/video_model.dart';
 import 'package:video_compress/video_compress.dart';
 
 class UploadVideoController {
@@ -50,6 +51,23 @@ class UploadVideoController {
           await _uploadVideoToStorage('videos $length', videoPath);
       String thumbnailUrl =
           await _uploadThumbnailToStorage('videos $length', videoPath);
+      Video video = Video(
+          id: 'video $length',
+          uid: uid,
+          userName: (userSnapshot.data() as Map<String, dynamic>)['userName'],
+          profileImageUrl:
+              (userSnapshot.data() as Map<String, dynamic>)['userImageUrl'],
+          likes: [],
+          commentCount: 0,
+          shareCount: 0,
+          songName: songName,
+          caption: caption,
+          videoUrl: videoUrl,
+          thumbnailUrl: thumbnailUrl);
+      await fireStore
+          .collection('videos')
+          .doc('videos $length')
+          .set(video.toJson());
     } catch (e) {}
   }
 }
