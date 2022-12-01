@@ -146,7 +146,7 @@ class VideoScreen extends StatelessWidget {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                CommentScreen(),
+                                                CommentScreen(id: data.id),
                                           ),
                                         );
                                       },

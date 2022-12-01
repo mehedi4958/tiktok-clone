@@ -15,7 +15,7 @@ class Comment {
   final String uid;
   final String userName;
   final String comment;
-  final String datePublished;
+  final Timestamp datePublished;
   final List likes;
   final String profileImageUrl;
 

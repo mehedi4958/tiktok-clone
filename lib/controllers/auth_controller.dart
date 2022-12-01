@@ -92,13 +92,13 @@ class AuthController extends GetxController {
 
   /// persisting user
 
-  late Rx<User?> _user;
+  late Rx<User?> user;
 
   @override
   void onReady() {
-    _user = Rx<User?>(firebaseAuth.currentUser);
-    _user.bindStream(firebaseAuth.authStateChanges());
-    ever(_user, _setInitialState);
+    user = Rx<User?>(firebaseAuth.currentUser);
+    user.bindStream(firebaseAuth.authStateChanges());
+    ever(user, _setInitialState);
     super.onReady();
   }
 
