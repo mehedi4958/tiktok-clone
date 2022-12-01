@@ -1,7 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/views/screens/widgets/circle_animation.dart';
 
 class VideoScreen extends StatelessWidget {
   const VideoScreen({Key? key}) : super(key: key);
+
+  buildMusicAlbum(String profileImageUrl) {
+    return SizedBox(
+      height: 60,
+      width: 60,
+      child: Column(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Colors.grey,
+                  Colors.white,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Image.network(
+                profileImageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +162,9 @@ class VideoScreen extends StatelessWidget {
                                     ),
                                   )
                                 ],
+                              ),
+                              CircleAnimation(
+                                child: buildMusicAlbum('profileImageUrl'),
                               ),
                             ],
                           ),
