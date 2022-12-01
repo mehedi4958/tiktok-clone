@@ -16,6 +16,11 @@ class CommentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     commentController.updatePostId(id);
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: backgroundColor,
+        title: const Text('Comments'),
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
