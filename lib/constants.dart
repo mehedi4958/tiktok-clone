@@ -24,7 +24,7 @@ var authController = AuthController.instance;
 /// Screens
 
 final screens = [
-  const VideoScreen(),
+  VideoScreen(),
   const Text('Search screen'),
   const AddVideoScreen(),
   const Text('Message screen'),
