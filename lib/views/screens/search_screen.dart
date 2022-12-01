@@ -40,32 +40,30 @@ class SearchScreen extends StatelessWidget {
                 )
               : Obx(
                   () {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const ProfileScreen();
-                            },
-                          ),
-                        );
-                      },
-                      child: ListView.builder(
-                        itemCount: searchController.searchedUsers.length,
-                        itemBuilder: (context, index) {
-                          final searchedData =
-                              searchController.searchedUsers[index];
-                          return ListTile(
+                    return ListView.builder(
+                      itemCount: searchController.searchedUsers.length,
+                      itemBuilder: (context, index) {
+                        final searchedData =
+                            searchController.searchedUsers[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfileScreen(uid: searchedData.uid),
+                              ),
+                            );
+                          },
+                          child: ListTile(
                             leading: CircleAvatar(
                               backgroundColor: Colors.grey,
                               backgroundImage:
                                   NetworkImage(searchedData.userImageUrl),
                             ),
                             title: Text(searchedData.userName),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

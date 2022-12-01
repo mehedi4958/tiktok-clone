@@ -110,4 +110,9 @@ class AuthController extends GetxController {
       Get.offAll(() => const HomeScreen());
     }
   }
+
+  /// sign out
+  signOut() async {
+    await firebaseAuth.signOut();
+  }
 }
